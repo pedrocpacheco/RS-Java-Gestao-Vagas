@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity(name = "job")
@@ -24,6 +25,8 @@ public class JobEntity {
 
   private String description;
   private String benefits;
+
+  @NotBlank(message = "O campo [level] não pode ser nulo")
   private String level;
 
   @ManyToOne()

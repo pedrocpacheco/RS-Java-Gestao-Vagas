@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.pedrocpacheco.gestao_vagas.exceptions.UserFoundException;
 import br.com.pedrocpacheco.gestao_vagas.modules.candidate.CandidateEntity;
 import br.com.pedrocpacheco.gestao_vagas.modules.candidate.useCases.CreateCandidateUseCase;
 import jakarta.validation.Valid;
@@ -24,7 +25,7 @@ public class CandidateController {
     try {
       var result = createCandidateUseCase.execute(entity);
       return new ResponseEntity<>(result, HttpStatus.CREATED);
-    } catch (Exception e) {
+    } catch (UserFoundException e) {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
