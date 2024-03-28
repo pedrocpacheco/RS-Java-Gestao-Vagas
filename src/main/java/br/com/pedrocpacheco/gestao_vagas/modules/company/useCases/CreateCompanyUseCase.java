@@ -23,9 +23,11 @@ public class CreateCompanyUseCase {
           throw new UserFoundException();
         });
 
+    // * Codifica a senha digitada na criacao da company
     var passwordEncripted = passwordEncoder.encode(entity.getPassword());
     entity.setPassword(passwordEncripted);
 
+    // * Atualiza a senha para ela mesma codificada
     return repository.save(entity);
   }
 

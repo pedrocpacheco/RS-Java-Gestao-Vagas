@@ -17,13 +17,16 @@ public class SecurityConfig {
 
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    // * Define quais rotas estaram disponiveis sem autorização e as com
     http.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> {
           auth.requestMatchers("/candidate/").permitAll()
+              .requestMatchers("/company").permitAll()
               .requestMatchers("/company/").permitAll()
               .requestMatchers("/auth/company").permitAll();
           auth.anyRequest().authenticated();
         })
+        // * Define o filtro que sera usado
         .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
     return http.build();
   }

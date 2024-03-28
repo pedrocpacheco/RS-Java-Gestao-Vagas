@@ -18,6 +18,7 @@ public class AuthCompanyController {
   @Autowired
   private AuthCompanyUseCase authCompanyUseCase;
 
+  // * Informa Usuario e Senha de Company e recebe o Token criado
   @PostMapping("/company")
   public ResponseEntity<Object> create(@RequestBody AuthCompanyDto dto) {
     try {

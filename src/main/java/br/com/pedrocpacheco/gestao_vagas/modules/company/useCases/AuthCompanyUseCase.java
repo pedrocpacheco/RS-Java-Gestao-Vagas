@@ -30,21 +30,25 @@ public class AuthCompanyUseCase {
   private PasswordEncoder passwordEncoder;
 
   public String execute(AuthCompanyDto dto) throws AuthenticationException {
+    // * Ve se o usuario esta errado
     var company = repository.findByUsername(dto.username())
         .orElseThrow(() -> {
           throw new UsernameNotFoundException("Username/password incorrect");
         });
 
+    // * Ve se a senha esta errada
     var passwordMatches = passwordEncoder.matches(dto.password(), company.getPassword());
     if (!passwordMatches)
       throw new AuthenticationException("Username/password incorrect");
 
+    // * Cria o token caso ambos acima certos
     Algorithm algorithm = Algorithm.HMAC256(secretKey);
     var token = JWT.create().withIssuer("javagas")
         .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
         .withSubject(company.getId().toString())
         .sign(algorithm);
 
+    // * Retorna token criado
     return token;
   }
 
