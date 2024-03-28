@@ -17,7 +17,7 @@ import lombok.Data;
 
 @Entity(name = "company")
 @Data
-public class ComapanyEntity {
+public class CompanyEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.pedrocpacheco.gestao_vagas.modules.company.entities.ComapanyEntity;
+import br.com.pedrocpacheco.gestao_vagas.modules.company.entities.CompanyEntity;
 import br.com.pedrocpacheco.gestao_vagas.modules.company.repositories.CompanyRepository;
 import br.com.pedrocpacheco.gestao_vagas.modules.company.useCases.CreateCompanyUseCase;
 import jakarta.validation.Valid;
@@ -27,12 +27,12 @@ public class CompanyController {
   private CompanyRepository repository;
 
   @GetMapping("")
-  public List<ComapanyEntity> findAll() {
+  public List<CompanyEntity> findAll() {
     return repository.findAll();
   }
 
   @PostMapping("/")
-  public ResponseEntity<Object> create(@Valid @RequestBody ComapanyEntity entity) {
+  public ResponseEntity<Object> create(@Valid @RequestBody CompanyEntity entity) {
     try {
       var result = createCompanyUseCase.execute(entity);
       return new ResponseEntity<>(result, HttpStatus.CREATED);

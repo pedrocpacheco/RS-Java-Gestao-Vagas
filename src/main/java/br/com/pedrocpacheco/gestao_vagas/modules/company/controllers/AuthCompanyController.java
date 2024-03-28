@@ -1,16 +1,15 @@
 package br.com.pedrocpacheco.gestao_vagas.modules.company.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pedrocpacheco.gestao_vagas.modules.company.dto.AuthCompanyDto;
 import br.com.pedrocpacheco.gestao_vagas.modules.company.useCases.AuthCompanyUseCase;
-
-import javax.naming.AuthenticationException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/auth")
@@ -20,8 +19,13 @@ public class AuthCompanyController {
   private AuthCompanyUseCase authCompanyUseCase;
 
   @PostMapping("/company")
-  public String create(@RequestBody AuthCompanyDto dto) throws AuthenticationException {
-    return authCompanyUseCase.execute(dto);
+  public ResponseEntity<Object> create(@RequestBody AuthCompanyDto dto) {
+    try {
+      var token = authCompanyUseCase.execute(dto);
+      return new ResponseEntity<>(token, HttpStatus.OK);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+    }
   }
 
 }

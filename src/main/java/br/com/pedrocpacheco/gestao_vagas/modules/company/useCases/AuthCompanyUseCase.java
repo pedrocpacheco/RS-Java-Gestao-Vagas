@@ -29,7 +29,7 @@ public class AuthCompanyUseCase {
   public String execute(AuthCompanyDto dto) throws AuthenticationException {
     var company = repository.findByUsername(dto.username())
         .orElseThrow(() -> {
-          throw new UsernameNotFoundException("Company not found");
+          throw new UsernameNotFoundException("Username/password incorrect");
         });
 
     var passwordMatches = passwordEncoder.matches(dto.password(), company.getPassword());
