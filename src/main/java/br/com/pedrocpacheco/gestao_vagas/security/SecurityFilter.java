@@ -32,17 +32,16 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     // * Valida o token
     if (token != null) {
-      var subjectToken = jwtProvider.validateToken(token);
+      var subjectToken = jwtProvider.validateToken(token); // * Pega o token
       if (subjectToken.isEmpty()) {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         return;
       }
-      request.setAttribute("company_id", response);
+      request.setAttribute("company_id", subjectToken); // * Seta o token como id
       var auth = new UsernamePasswordAuthenticationToken(subjectToken, null, Collections.emptyList());
       SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
-    System.out.println("NULO SEU IDIOTA");
     filterChain.doFilter(request, response);
   }
 
