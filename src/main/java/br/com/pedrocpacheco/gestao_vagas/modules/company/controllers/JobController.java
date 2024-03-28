@@ -17,7 +17,7 @@ import br.com.pedrocpacheco.gestao_vagas.modules.company.useCases.CreateJobUseCa
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/company/job")
+@RequestMapping("/job")
 public class JobController {
 
   @Autowired
