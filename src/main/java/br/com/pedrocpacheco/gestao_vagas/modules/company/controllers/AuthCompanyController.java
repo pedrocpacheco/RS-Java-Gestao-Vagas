@@ -12,14 +12,14 @@ import br.com.pedrocpacheco.gestao_vagas.modules.company.dto.AuthCompanyDto;
 import br.com.pedrocpacheco.gestao_vagas.modules.company.useCases.AuthCompanyUseCase;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/company")
 public class AuthCompanyController {
 
   @Autowired
   private AuthCompanyUseCase authCompanyUseCase;
 
   // * Informa Usuario e Senha de Company e recebe o Token criado
-  @PostMapping("/company")
+  @PostMapping("/auth")
   public ResponseEntity<Object> create(@RequestBody AuthCompanyDto dto) {
     try {
       var token = authCompanyUseCase.execute(dto);
